@@ -1,7 +1,8 @@
 class Window < Gosu::Window
   def initialize
-    super(1024, 768, false)
+    super(*Processor::Screen)
     self.caption = "Bomber"
+    @map = Map.new('resources/maps/basic.txt')
   end
 
   def button_down(id)
