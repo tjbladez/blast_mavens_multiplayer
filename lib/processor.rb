@@ -1,5 +1,6 @@
 require 'window'
 require 'map'
+require 'player'
 
 # Processor is responsible to keep overall configuration knowledge, state
 # transitions and keeping track of windows
