@@ -5,11 +5,12 @@ require 'map'
 # transitions and keeping track of windows
 class Processor
   Screen = [1024, 768, false]
+  TileSize = 48
   class << self
-    attr_accessor :window
+    attr_reader :window
     def new
-      self.window = Window.new
-      window.show
+      @window = Window.new
+      @window.show
     end
   end
 end
