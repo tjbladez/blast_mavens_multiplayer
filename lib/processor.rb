@@ -1,3 +1,4 @@
+require 'solid_tile'
 require 'window'
 require 'map'
 require 'player'
