@@ -10,20 +10,13 @@ class Window < Gosu::Window
 
   def draw
     map.draw(0, 0) # no need for scrolling and positioning
-    player.draw
-  end
-
-  def player
-    @player ||= Player.new
+    Processor.players.each(&:draw)
   end
 
   def update
-    direction = :left  if button_down? Gosu::Button::KbLeft
-    direction = :right if button_down? Gosu::Button::KbRight
-    direction = :up    if button_down? Gosu::Button::KbUp
-    direction = :down  if button_down? Gosu::Button::KbDown
-    player.update(direction)
+    Processor.players.each(&:update)
   end
+
 private
   def button_down(id)
     close if id == Gosu::KbEscape
