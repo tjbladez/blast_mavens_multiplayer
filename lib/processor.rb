@@ -1,3 +1,4 @@
+require 'tileable'
 require 'solid_tile'
 require 'window'
 require 'map'
@@ -28,5 +29,12 @@ class Processor
       true
     end
 
+    def center_map
+      @center_map ||={}.tap do |center_coords|
+        (0...768).each_slice(48) do |coords_range|
+          center_coords[coords_range[24]] = coords_range
+        end
+      end
+    end
   end
 end

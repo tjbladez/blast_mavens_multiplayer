@@ -1,4 +1,5 @@
 class Player
+
   attr_reader :bombs
   def initialize
     @t_size       = Processor::TileSize
@@ -45,13 +46,21 @@ private
   end
 
   def bombs!
-    if Processor.window.button_down?(@bomb_control[@index]) && !@bombs.detect {|bomb| bomb.at?(@x,@y)}
-      @bombs << Bomb.new(@x, @y) if Processor.window.button_down?(@bomb_control[@index])
+    if Processor.window.button_down?(@bomb_control[@index]) && !@bombs.detect {|bomb| bomb.at?(center_x, center_y)}
+      @bombs << Bomb.new(center_x, center_y) if Processor.window.button_down?(@bomb_control[@index])
     end
     check_bomb_existance
   end
 
   def check_bomb_existance
     @bombs.reject! { |bomb| bomb.time_counter == 0 }
+  end
+
+  def center_x
+    @x + 24
+  end
+
+  def center_y
+    @y + 24
   end
 end
