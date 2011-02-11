@@ -16,7 +16,7 @@ class Player
   end
 
   def draw
-    @sprites.first.draw(@x, @y, 1)
+    @sprites.first.draw(@x, @y, 2)
   end
 
   def update
