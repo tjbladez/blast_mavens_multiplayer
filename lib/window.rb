@@ -10,7 +10,10 @@ class Window < Gosu::Window
 
   def draw
     map.draw(0, 0) # no need for scrolling and positioning
-    Processor.players.each(&:draw)
+    Processor.players.each do |player|
+      player.draw
+      player.bombs.each(&:draw)
+    end
   end
 
   def update

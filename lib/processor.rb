@@ -1,6 +1,7 @@
 require 'solid_tile'
 require 'window'
 require 'map'
+require 'bomb'
 require 'player'
 
 # Processor is responsible to keep overall configuration knowledge, state
