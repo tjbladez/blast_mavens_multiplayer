@@ -36,5 +36,14 @@ class Processor
         end
       end
     end
+
+    def center_for(x, y)
+      [center_for_coord(x), center_for_coord(y)]
+    end
+  private
+    def center_for_coord(coord)
+      center = center_map.detect{|center, coords| coords.include?(coord)}
+      center && center.first
+    end
   end
 end
