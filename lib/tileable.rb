@@ -6,7 +6,7 @@ module Tileable
   module InstanceMethods
     def register!(x,y)
       @center_x, @center_y = *Processor.center_for(x, y)
-      @top  = [@center_x - 24, @center_y - 24]
+      @top     = [@center_x - 24, @center_y - 24]
     end
 
     def at?(x,y)

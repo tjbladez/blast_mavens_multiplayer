@@ -6,7 +6,7 @@ class Bomb
     register!(x, y)
     @t_size       = Processor::TileSize
     @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/dynoset.png", @t_size, @t_size, false)
-    @time_counter = 60
+    @time_counter = 80
     @sprite_index = 0
   end
 
@@ -17,7 +17,7 @@ class Bomb
 
   def update
     @time_counter -= 1
-    @sprite_index += 1 if @time_counter % 15 == 0
+    @sprite_index += 1 if @time_counter % 20 == 0
   end
 
 end
