@@ -2,8 +2,8 @@ class SolidTile
 
   def initialize(x,y)
     @x, @y = x, y
-    @x_range = (@x..@x+Processor::TileSize)
-    @y_range = (@y..@y+Processor::TileSize)
+    @x_range = (@x...@x+Processor::TileSize)
+    @y_range = (@y...@y+Processor::TileSize)
   end
 
   def at?(x, y)

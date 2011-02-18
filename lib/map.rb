@@ -38,7 +38,7 @@ class Map
   end
 
   def solid_at?(x,y)
-    @solid_tiles.detect {|tile| tile.at?(x,y) }
+    @solid_tiles.detect {|tile| tile.at?(x,y) } || x < 0 || y < 0
   end
 
   def legend

@@ -26,7 +26,7 @@ class Player
   end
 
   def no_collision?(target)
-    !Processor.window.map.solid_at?(@x+target[0]+target[2], @y+target[1]+target[3])
+    !solid_at?(@x+target[0]+target[2], @y+target[1]+target[3])
   end
 
 private
@@ -56,7 +56,14 @@ private
 
   def check_bomb_existance
     @bombs.reject! do |bomb|
-      @explosions += bomb.explode if bomb.time_counter == 0
+      if bomb.time_counter == 0
+        @explosions << Explosion.new(bomb.top_x, bomb.top_y)
+        explode_direction(bomb.top_x, bomb.top_y, :right)
+        explode_direction(bomb.top_x, bomb.top_y, :left)
+        explode_direction(bomb.top_x, bomb.top_y, :up)
+        explode_direction(bomb.top_x, bomb.top_y, :down)
+        true
+      end
     end
   end
 
@@ -70,5 +77,23 @@ private
 
   def center_y
     @y + 24
+  end
+
+  def solid_at?(x, y)
+    Processor.window.map.solid_at?(x, y)
+  end
+
+  def explode_direction(x,y, direction)
+    [@t_size, @t_size*2].each do |inc|
+      case direction
+      when :right then new_x, new_y = x + inc, y
+      when :left  then new_x, new_y = x - inc, y
+      when :down  then new_x, new_y = x, y + inc
+      when :up    then new_x, new_y = x, y - inc
+      end
+
+      break if solid_at?(new_x, new_y)
+      @explosions << Explosion.new(new_x, new_y)
+    end
   end
 end
