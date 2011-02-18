@@ -13,6 +13,7 @@ class Window < Gosu::Window
     Processor.players.each do |player|
       player.draw
       player.bombs.each(&:draw)
+      player.explosions.each(&:draw)
     end
   end
 

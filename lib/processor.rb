@@ -2,6 +2,7 @@ require 'tileable'
 require 'solid_tile'
 require 'window'
 require 'map'
+require 'explosion'
 require 'bomb'
 require 'player'
 

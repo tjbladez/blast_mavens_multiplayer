@@ -1,11 +1,12 @@
 class Player
 
-  attr_reader :bombs
+  attr_reader :bombs, :explosions
   def initialize
     @t_size       = Processor::TileSize
     @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/temp_char.png", @t_size, @t_size, false)
     @index        = Processor.has_at_least_one_player? ? 1 : 0
     @bombs        = []
+    @explosions   = []
     @move_control = {[Gosu::Button::KbLeft,  Gosu::Button::KbA] => [[-1, 0],[0, 0, 0, 43]],
                     [Gosu::Button::KbRight, Gosu::Button::KbD] => [[1, 0], [43, 0, 43, 43]],
                     [Gosu::Button::KbUp,    Gosu::Button::KbW] => [[0, -1],[43, 0, 0, 0]],
@@ -50,10 +51,17 @@ private
       @bombs << Bomb.new(center_x, center_y) if Processor.window.button_down?(@bomb_control[@index])
     end
     check_bomb_existance
+    check_explosion_existance
   end
 
   def check_bomb_existance
-    @bombs.reject! { |bomb| bomb.time_counter == 0 }
+    @bombs.reject! do |bomb|
+      @explosions += bomb.explode if bomb.time_counter == 0
+    end
+  end
+
+  def check_explosion_existance
+    @explosions.reject! { |explosion| explosion.time_counter == 0}
   end
 
   def center_x

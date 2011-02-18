@@ -8,6 +8,7 @@ class Bomb
     @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/dynoset.png", @t_size, @t_size, false)
     @time_counter = 60
     @sprite_index = 0
+    @explosions   = []
   end
 
   def draw
@@ -18,5 +19,17 @@ class Bomb
   def update
     @time_counter -= 1
     @sprite_index += 1 if @time_counter % 15 == 0
+  end
+
+  def explode
+    @explosions << Explosion.new(top_x, top_y) #at the place of the bomb
+    @explosions << Explosion.new(top_x + 48, top_y)
+    @explosions << Explosion.new(top_x + 96, top_y)
+    @explosions << Explosion.new(top_x - 48, top_y)
+    @explosions << Explosion.new(top_x - 96, top_y)
+    @explosions << Explosion.new(top_x, top_y + 48)
+    @explosions << Explosion.new(top_x, top_y + 96)
+    @explosions << Explosion.new(top_x, top_y - 48)
+    @explosions << Explosion.new(top_x, top_y - 96)
   end
 end
