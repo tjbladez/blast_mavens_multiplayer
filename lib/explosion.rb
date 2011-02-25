@@ -5,16 +5,18 @@ class Explosion
   def initialize(x,y)
     register!(x, y)
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/tempfire.png", @t_size, @t_size, false)
-    @time_counter = 30
+    @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/fire.png", @t_size, @t_size, false)
+    @time_counter = 20
+    @sprite_index = 0
   end
 
   def draw
-    @sprites.first.draw(top_x, top_y, 2)
+    @sprites[@sprite_index].draw(top_x, top_y, 2)
     update
   end
 
   def update
     @time_counter -= 1
+    @sprite_index += 1 if @time_counter % 2 == 0
   end
 end
