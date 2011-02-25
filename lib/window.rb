@@ -21,10 +21,7 @@ class Window < Gosu::Window
     Processor.players.each_with_index do |player, index|
       player.update
       player.explosions.each do |explosion|
-        Processor.players[0].bombs.each do |bomb|
-          bomb.time_counter = 1 if explosion.at?(bomb.top_x, bomb.top_y)
-        end
-        Processor.players[1].bombs.each do |bomb|
+        Processor.all_bombs.each do |bomb|
           bomb.time_counter = 1 if explosion.at?(bomb.top_x, bomb.top_y)
         end
         puts "PLAYER1 hit by PLAYER#{index+1} explosion" if explosion.at?(Processor.players[0].x, Processor.players[0].y)

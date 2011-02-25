@@ -26,7 +26,9 @@ class Player
   end
 
   def no_collision?(target)
-    !solid_at?(@x+target[0]+target[2], @y+target[1]+target[3])
+    target_x = @x+target[0]+target[2]
+    target_y = @y+target[1]+target[3]
+    !solid_at?(target_x, target_y) && !Processor.all_bombs.detect{|bomb| bomb.solid_at?(target_x, target_y)}
   end
 
 private
@@ -39,8 +41,10 @@ private
       tar_x1, tar_y1, tar_x2, tar_y2 = *move_instruct.last
       4.times do |i|#speed
         if no_collision?(x_y + [tar_x1, tar_y1]) && no_collision?(x_y + [tar_x2, tar_y2])
+          update_bomb_solidness
           @x += inc_x
           @y += inc_y
+
         end
       end
     end
@@ -94,6 +98,12 @@ private
 
       break if solid_at?(new_x, new_y)
       @explosions << Explosion.new(new_x, new_y)
+    end
+  end
+
+  def update_bomb_solidness
+    bombs.each do |bomb|
+      bomb.solid = true unless bomb.solid || bomb.at?(center_x, center_y)
     end
   end
 end

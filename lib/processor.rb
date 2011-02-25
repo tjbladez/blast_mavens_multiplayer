@@ -42,6 +42,10 @@ class Processor
       [center_for_coord(x), center_for_coord(y)]
     end
 
+    def all_bombs
+      players.map {|p| p.bombs}.flatten
+    end
+
   private
     def center_for_coord(coord)
       center = center_map.detect{|center, coords| coords.include?(coord)}
