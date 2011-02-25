@@ -3,7 +3,7 @@ class Player
   attr_reader :bombs, :explosions, :x, :y
   def initialize
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/temp_char.png", @t_size, @t_size, false)
+    @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/char_3.png", @t_size, @t_size, false)
     @index        = Processor.has_at_least_one_player? ? 1 : 0
     @bombs        = []
     @explosions   = []
