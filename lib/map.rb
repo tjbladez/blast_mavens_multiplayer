@@ -1,6 +1,6 @@
 class Map
   attr_accessor :solid_tiles
-  SOLID = [1]
+  SOLID = [1, 2, 3, 4, 5, 10]
 
   def initialize(path)
     @path   = path
@@ -44,13 +44,15 @@ class Map
   def legend
     {
       '.'  => 0,
-      'x'  => 1,
-      '-'  => 1,
-      '|'  => 1,
-      '/'  => 1,
-      '\\' => 1,
-      '<'  => 1,
-      '>'  => 1
+      'x'  => 10,
+      ']'  => 2,
+      '-'  => 3,
+      '='  => 1,
+      '['  => 5,
+      '/'  => 6,
+      '\\' => 7,
+      '<'  => 8,
+      '>'  => 9
       }
   end
 end
