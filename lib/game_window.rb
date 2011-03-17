@@ -1,4 +1,4 @@
-class Window < Gosu::Window
+class GameWindow < Gosu::Window
   def initialize
     super(*Processor::Screen)
     self.caption = "Bomber"

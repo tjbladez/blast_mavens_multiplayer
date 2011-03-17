@@ -3,17 +3,21 @@ class Player
   attr_reader :bombs, :explosions, :x, :y
   def initialize
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.window, "resources/images/char_3.png", @t_size, @t_size, false)
+    @sprites      = Gosu::Image.load_tiles(Processor.game_window, "resources/images/char_3.png", @t_size, @t_size, false)
     @index        = Processor.has_at_least_one_player? ? 1 : 0
     @bombs        = []
     @explosions   = []
-    @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [[-1, 0],[0, 0, 0, 43]],
-                    [Gosu::Button::KbD,        Gosu::Button::KbRight] => [[1, 0], [43, 0, 43, 43]],
-                    [Gosu::Button::KbW,        Gosu::Button::KbUp   ] => [[0, -1],[43, 0, 0, 0]],
-                    [Gosu::Button::KbS,        Gosu::Button::KbDown ] => [[0, 1],[43, 43, 0, 43 ]]}
+    @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [[-1, 0],[0, 0, 0, 40]],
+                    [Gosu::Button::KbD,        Gosu::Button::KbRight] => [[1, 0], [40, 0, 40, 40]],
+                    [Gosu::Button::KbW,        Gosu::Button::KbUp   ] => [[0, -1],[40, 0, 0, 0]],
+                    [Gosu::Button::KbS,        Gosu::Button::KbDown ] => [[0, 1],[40, 40, 0, 40 ]]}
     @bomb_control = [Gosu::Button::KbSpace,    Gosu::Button::KbRightAlt]
     start_coords = [@t_size * 1 + 1, @t_size * 14 + 1]
     @x = @y = start_coords[@index]
+
+    if @index == 1
+      # @brain = BasicBrain.new(self, Processor.players[0])
+    end
   end
 
   def draw
@@ -33,9 +37,8 @@ class Player
 
 private
   def movement!
-    move_control = @move_control.detect {|keys, movement| Processor.window.button_down?(keys[@index]) }
-    if move_control
-      move_instruct = move_control.last
+    move_instruct = @brain ? @brain.move_instructions : input_move_instructions
+    if move_instruct
       x_y = move_instruct.first
       inc_x, inc_y = x_y
       tar_x1, tar_y1, tar_x2, tar_y2 = *move_instruct.last
@@ -51,8 +54,8 @@ private
   end
 
   def bombs!
-    if Processor.window.button_down?(@bomb_control[@index]) && !@bombs.detect {|bomb| bomb.at?(center_x, center_y)}
-      @bombs << Bomb.new(center_x, center_y) if Processor.window.button_down?(@bomb_control[@index])
+    if Processor.game_window.button_down?(@bomb_control[@index]) && !@bombs.detect {|bomb| bomb.at?(center_x, center_y)}
+      @bombs << Bomb.new(center_x, center_y) if Processor.game_window.button_down?(@bomb_control[@index])
     end
     check_bomb_existance
     check_explosion_existance
@@ -84,7 +87,7 @@ private
   end
 
   def solid_at?(x, y)
-    Processor.window.map.solid_at?(x, y)
+    Processor.game_window.map.solid_at?(x, y)
   end
 
   def explode_direction(x,y, direction)
@@ -105,5 +108,10 @@ private
     bombs.each do |bomb|
       bomb.solid = true unless bomb.solid || bomb.at?(center_x, center_y)
     end
+  end
+
+  def input_move_instructions
+    move = @move_control.detect {|keys, movement| Processor.game_window.button_down?(keys[@index]) }
+    move.last if move
   end
 end

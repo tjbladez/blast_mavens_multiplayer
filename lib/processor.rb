@@ -1,25 +1,25 @@
 require 'tileable'
 require 'solid_tile'
-require 'window'
+require 'menu_window'
+require 'game_window'
 require 'map'
 require 'explosion'
 require 'bomb'
 require 'player'
-
+require 'basic_brain'
 # Processor is responsible to keep overall configuration knowledge, state
 # transitions and keeping track of windows
 class Processor
   Screen = [1024, 768, false]
   TileSize = 48
   class << self
-    attr_reader :window
+    attr_reader :game_window
     attr_accessor :players
 
     def new
       @players = []
-      @window = Window.new
-      2.times { @players << Player.new }
-      @window.show
+      @menu_window = MenuWindow.new
+      @menu_window.show
     end
 
     def has_at_least_one_player?
@@ -44,6 +44,13 @@ class Processor
 
     def all_bombs
       players.map {|p| p.bombs}.flatten
+    end
+
+    def start_game
+      @menu_window.close
+      @game_window = GameWindow.new
+      2.times { @players << Player.new }
+      @game_window.show
     end
 
   private
