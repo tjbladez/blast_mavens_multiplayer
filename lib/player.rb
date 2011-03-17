@@ -1,6 +1,6 @@
 class Player
 
-  attr_reader :bombs, :explosions, :x, :y
+  attr_reader :bombs, :explosions, :x, :y, :index
   def initialize
     @index        = Processor.has_at_least_one_player? ? 1 : 0
     @t_size       = Processor::TileSize
@@ -16,7 +16,7 @@ class Player
     @x = @y = start_coords[@index]
 
     if @index == 1
-      # @brain = BasicBrain.new(self, Processor.players[0])
+      @brain = BasicBrain.new(self, Processor.players[0])
     end
   end
 
@@ -47,7 +47,6 @@ private
           update_bomb_solidness
           @x += inc_x
           @y += inc_y
-
         end
       end
     end

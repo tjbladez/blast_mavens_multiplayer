@@ -2,6 +2,8 @@ class GameWindow < Gosu::Window
   def initialize
     super(*Processor::Screen)
     self.caption = "Bomber"
+    @players_hit = {:player_0 => [], :player_1 => []}
+    @finish_game = false
   end
 
   def map
@@ -9,7 +11,7 @@ class GameWindow < Gosu::Window
   end
 
   def draw
-    map.draw(0, 0) # no need for scrolling and positioning
+    map.draw(0, 0)
     Processor.players.each do |player|
       player.draw
       player.bombs.each(&:draw)
@@ -24,14 +26,29 @@ class GameWindow < Gosu::Window
         Processor.all_bombs.each do |bomb|
           bomb.time_counter = 1 if explosion.at?(bomb.top_x, bomb.top_y)
         end
-        puts "PLAYER1 hit by PLAYER#{index+1} explosion" if explosion.at?(Processor.players[0].x, Processor.players[0].y)
-        puts "PLAYER2 hit by PLAYER#{index+1} explosion" if explosion.at?(Processor.players[1].x, Processor.players[1].y)
+        players_hit?(explosion, index)
       end
+    end
+
+    if @finish_game && Processor.players.map(&:explosions).flatten.empty?
+      Processor.game_over(@players_hit)
+      close
     end
   end
 
 private
   def button_down(id)
     close if id == Gosu::KbEscape
+  end
+
+  def players_hit?(explosion, index)
+    Processor.players.each do |player|
+      if explosion.at?(player.x, player.y)
+        hit    = "player_#{player.index}".to_sym
+        hit_by = "player#{index}".to_s
+        @players_hit[hit] << hit_by unless @players_hit[hit].include?(hit_by)
+        @finish_game = true
+      end
+    end
   end
 end

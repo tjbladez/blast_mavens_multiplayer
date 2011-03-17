@@ -7,13 +7,14 @@ require 'explosion'
 require 'bomb'
 require 'player'
 require 'basic_brain'
+require 'game_over_window'
 # Processor is responsible to keep overall configuration knowledge, state
 # transitions and keeping track of windows
 class Processor
   Screen = [1024, 768, false]
   TileSize = 48
   class << self
-    attr_reader :game_window
+    attr_reader :game_window, :window
     attr_accessor :players
 
     def new
@@ -51,6 +52,10 @@ class Processor
       @game_window = GameWindow.new
       2.times { @players << Player.new }
       @game_window.show
+    end
+
+    def game_over(death_toll)
+      GameOverWindow.new(death_toll).show
     end
 
   private
