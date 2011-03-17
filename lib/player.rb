@@ -2,9 +2,9 @@ class Player
 
   attr_reader :bombs, :explosions, :x, :y
   def initialize
-    @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.game_window, "resources/images/char_3.png", @t_size, @t_size, false)
     @index        = Processor.has_at_least_one_player? ? 1 : 0
+    @t_size       = Processor::TileSize
+    @sprites      = Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_#{@index}.png", @t_size, @t_size, false)
     @bombs        = []
     @explosions   = []
     @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [[-1, 0],[0, 0, 0, 40]],
@@ -16,7 +16,7 @@ class Player
     @x = @y = start_coords[@index]
 
     if @index == 1
-      @brain = BasicBrain.new(self, Processor.players[0])
+      # @brain = BasicBrain.new(self, Processor.players[0])
     end
   end
 
