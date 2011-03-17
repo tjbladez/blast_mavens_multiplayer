@@ -23,4 +23,9 @@ class BasicBrain
     @last_move = direction
     return @move_control[direction]
   end
+
+  #todo: figure out a way when to place a bomb
+  def placing_bomb?
+    false
+  end
 end

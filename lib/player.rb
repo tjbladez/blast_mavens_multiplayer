@@ -16,7 +16,7 @@ class Player
     @x = @y = start_coords[@index]
 
     if @index == 1
-      # @brain = BasicBrain.new(self, Processor.players[0])
+      @brain = BasicBrain.new(self, Processor.players[0])
     end
   end
 
@@ -54,8 +54,8 @@ private
   end
 
   def bombs!
-    if Processor.game_window.button_down?(@bomb_control[@index]) && !@bombs.detect {|bomb| bomb.at?(center_x, center_y)}
-      @bombs << Bomb.new(center_x, center_y) if Processor.game_window.button_down?(@bomb_control[@index])
+    if placing_bomb? && !@bombs.detect {|bomb| bomb.at?(center_x, center_y)}
+      @bombs << Bomb.new(center_x, center_y)
     end
     check_bomb_existance
     check_explosion_existance
@@ -113,5 +113,9 @@ private
   def input_move_instructions
     move = @move_control.detect {|keys, movement| Processor.game_window.button_down?(keys[@index]) }
     move.last if move
+  end
+
+  def placing_bomb?
+    @brain ? @brain.placing_bomb? : Processor.game_window.button_down?(@bomb_control[@index])
   end
 end
