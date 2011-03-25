@@ -20,6 +20,7 @@ class MenuWindow < Gosu::Window
 
   def mouse_clicked(x, y)
     if (380..480).include?(x) && (280..320).include?(y)
+      close
       Processor.start_game
     end
     close if (380..480).include?(x) && (380..420).include?(y)

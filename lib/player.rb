@@ -16,7 +16,7 @@ class Player
     @x = @y = start_coords[@index]
 
     if @index == 1
-      @brain = BasicBrain.new(self, Processor.players[0])
+      # @brain = BasicBrain.new(self, Processor.players[0])
     end
   end
 

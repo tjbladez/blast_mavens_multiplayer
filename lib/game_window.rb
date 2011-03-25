@@ -45,7 +45,7 @@ private
     Processor.players.each do |player|
       if explosion.at?(player.x, player.y)
         hit    = "player_#{player.index}".to_sym
-        hit_by = "player#{index}".to_s
+        hit_by = "player_#{index}".to_sym
         @players_hit[hit] << hit_by unless @players_hit[hit].include?(hit_by)
         @finish_game = true
       end

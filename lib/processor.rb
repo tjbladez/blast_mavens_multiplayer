@@ -48,7 +48,6 @@ class Processor
     end
 
     def start_game
-      @menu_window.close
       @game_window = GameWindow.new
       2.times { @players << Player.new }
       @game_window.show
