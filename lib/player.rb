@@ -4,24 +4,30 @@ class Player
   def initialize
     @index        = Processor.has_at_least_one_player? ? 1 : 0
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_#{@index}.png", @t_size, @t_size, false)
+    #more animation to come
+    @facing       = :down
+    @animation_sprites = {:left  => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_left1.png", @t_size, @t_size, false),
+                          :down  => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_down1.png", @t_size, @t_size, false),
+                          :up    => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_up1.png", @t_size, @t_size, false),
+                          :right => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_right1.png", @t_size, @t_size, false)}
     @bombs        = []
     @explosions   = []
-    @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [[-1, 0],[0, 0, 0, 40]],
-                    [Gosu::Button::KbD,        Gosu::Button::KbRight] => [[1, 0], [40, 0, 40, 40]],
-                    [Gosu::Button::KbW,        Gosu::Button::KbUp   ] => [[0, -1],[40, 0, 0, 0]],
-                    [Gosu::Button::KbS,        Gosu::Button::KbDown ] => [[0, 1],[40, 40, 0, 40 ]]}
+    @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [:left, [-1, 0],[0, 0, 0, 40]],
+                    [Gosu::Button::KbD,        Gosu::Button::KbRight] => [:right, [1, 0], [40, 0, 40, 40]],
+                    [Gosu::Button::KbW,        Gosu::Button::KbUp   ] => [:up, [0, -1],[40, 0, 0, 0]],
+                    [Gosu::Button::KbS,        Gosu::Button::KbDown ] => [:down, [0, 1],[40, 40, 0, 40 ]]}
     @bomb_control = [Gosu::Button::KbSpace,    Gosu::Button::KbRightAlt]
-    start_coords = [@t_size * 1 + 1, @t_size * 14 + 1]
-    @x = @y = start_coords[@index]
+    @img_counter  = 0
+    @img_index    = 4
 
+    @x = @y = [@t_size * 1 + 1, @t_size * 14 + 1][@index]
     if @index == 1
       # @brain = BasicBrain.new(self, Processor.players[0])
     end
   end
 
   def draw
-    @sprites.first.draw(@x, @y, 2)
+    @animation_sprites[@facing][@img_index].draw(@x, @y, 2)
   end
 
   def update
@@ -37,9 +43,12 @@ class Player
 
 private
   def movement!
+    @img_counter += 1
     move_instruct = @brain ? @brain.move_instructions : input_move_instructions
     if move_instruct
-      x_y = move_instruct.first
+      @img_index = 0 unless (0..2).include?(@img_index)
+      @img_index += 1 if @img_counter % 5 == 0
+      x_y = move_instruct[1]
       inc_x, inc_y = x_y
       tar_x1, tar_y1, tar_x2, tar_y2 = *move_instruct.last
       4.times do |i|#speed
@@ -47,8 +56,11 @@ private
           update_bomb_solidness
           @x += inc_x
           @y += inc_y
+          @facing = move_instruct[0]
         end
       end
+    else
+      @img_index = 4
     end
   end
 
