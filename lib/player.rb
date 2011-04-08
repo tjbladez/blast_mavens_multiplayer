@@ -22,7 +22,7 @@ class Player
 
     @x = @y = [@t_size * 1 + 1, @t_size * 14 + 1][@index]
     if @index == 1
-      # @brain = BasicBrain.new(self, Processor.players[0])
+      @brain = BasicBrain.new(self, Processor.players[0])
     end
   end
 
