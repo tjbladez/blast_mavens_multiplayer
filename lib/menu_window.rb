@@ -6,6 +6,9 @@ class MenuWindow < Gosu::Window
     @new_game   = Gosu::Image.load_tiles(self, 'resources/images/newgame.png', 80, 20, true).first
     @options    = Gosu::Image.load_tiles(self, 'resources/images/options.png', 80, 20, true).first
     @exit_game  = Gosu::Image.load_tiles(self, 'resources/images/exitgame.png', 80, 20, true).first
+    @song       = Gosu::Song.new(self, 'resources/sounds/menu.wav')
+    @song.play(true)
+    @song.volume = 1.0
     @px = @py = 0
   end
 
@@ -22,16 +25,22 @@ class MenuWindow < Gosu::Window
   end
 
   def mouse_clicked(x, y)
-    if (380..480).include?(x) && (280..320).include?(y)
-      close
-      Processor.start_game
-    end
-    close if (380..480).include?(x) && (380..420).include?(y)
+    start_game if (470..550).include?(x) && (320..340).include?(y)
+    close if (470..550).include?(x) && (380..400).include?(y)
   end
 
   def button_down(id)
-    close if id == Gosu::KbEscape
-    Processor.start_game if id == Gosu::KbReturn
+    close                   if id == Gosu::KbEscape
+    start_game              if id == Gosu::KbReturn
     mouse_clicked(@px, @py) if id == Gosu::MsLeft
+    @song.volume -= 0.1     if id == Gosu::KbN
+    @song.volume += 0.1     if id == Gosu::KbM
+  end
+
+private
+  def start_game
+    @song.stop
+    close
+    Processor.start_game
   end
 end

@@ -6,10 +6,10 @@ class Player
     @t_size       = Processor::TileSize
     #more animation to come
     @facing       = :down
-    @animation_sprites = {:left  => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_left1.png", @t_size, @t_size, false),
-                          :down  => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_down1.png", @t_size, @t_size, false),
-                          :up    => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_up1.png", @t_size, @t_size, false),
-                          :right => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_right1.png", @t_size, @t_size, false)}
+    @animation_sprites = {:left  => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_left#{@index}.png", @t_size, @t_size, false),
+                          :down  => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_down#{@index}.png", @t_size, @t_size, false),
+                          :up    => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_up#{@index}.png", @t_size, @t_size, false),
+                          :right => Gosu::Image.load_tiles(Processor.game_window, "resources/images/player_right#{@index}.png", @t_size, @t_size, false)}
     @bombs        = []
     @explosions   = []
     @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [:left, [-1, 0],[0, 0, 0, 40]],
