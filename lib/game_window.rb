@@ -4,6 +4,9 @@ class GameWindow < Gosu::Window
     self.caption = "Bomber"
     @players_hit = {:player_0 => [], :player_1 => []}
     @finish_game = false
+    @song        = Gosu::Song.new(self, 'resources/sounds/battle.mp3')
+    @song.volume = 0.3
+    @song.play(true)
   end
 
   def map
@@ -31,6 +34,7 @@ class GameWindow < Gosu::Window
     end
 
     if @finish_game && Processor.players.map(&:explosions).flatten.empty?
+      @song.stop
       Processor.game_over(@players_hit)
       close
     end
