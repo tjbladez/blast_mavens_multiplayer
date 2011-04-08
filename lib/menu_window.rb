@@ -8,7 +8,7 @@ class MenuWindow < Gosu::Window
     @exit_game  = Gosu::Image.load_tiles(self, 'resources/images/exitgame.png', 80, 20, true).first
     @song       = Gosu::Song.new(self, 'resources/sounds/menu.wav')
     @song.play(true)
-    @song.volume = 1.0
+    @song.volume = 0.5
     @px = @py = 0
   end
 
