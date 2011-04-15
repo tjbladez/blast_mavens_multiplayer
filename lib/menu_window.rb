@@ -58,10 +58,9 @@ private
     (450..600).include?(x) && (380..420).include?(y)
   end
 
-
   def start_game
-    @song.stop
     close
+    @song.stop
     Processor.start_game
   end
 end

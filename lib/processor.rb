@@ -14,13 +14,12 @@ class Processor
   Screen = [1024, 768, false]
   TileSize = 48
   class << self
-    attr_reader :game_window, :window
+    attr_reader :game_window
     attr_accessor :players
 
     def new
       @players = []
-      @menu_window = MenuWindow.new
-      @menu_window.show
+      MenuWindow.new.show
     end
 
     def has_at_least_one_player?

@@ -19,6 +19,7 @@ class Bomb
   def update
     @time_counter -= 1
     @sprite_index += 1 if @time_counter % 20 == 0
+    @sprite_index = 3 if @sprite_index > 3
   end
 
   def solid_at?(x, y)

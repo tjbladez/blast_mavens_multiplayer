@@ -21,9 +21,9 @@ class Player
     @img_index    = 4
 
     @x = @y = [@t_size * 1 + 1, @t_size * 14 + 1][@index]
-    if @index == 1
-      @brain = BasicBrain.new(self, Processor.players[0])
-    end
+    # if @index == 1
+      # @brain = BasicBrain.new(self, Processor.players[0])
+    # end
   end
 
   def draw
