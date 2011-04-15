@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
-# require 'rubygems'
-# require 'blast_mavens_multiplayer'
+require 'rubygems'
+require "gosu"
 
-require File.expand_path("../../config/boot.rb", __FILE__)
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'processor'
 Processor.new

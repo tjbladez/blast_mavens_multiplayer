@@ -13,6 +13,7 @@ require 'game_over_window'
 class Processor
   Screen = [1024, 768, false]
   TileSize = 48
+  Caption = "Blast Mavens: Multiplayer Beta v0.1.2"
   class << self
     attr_reader :game_window
     attr_accessor :players

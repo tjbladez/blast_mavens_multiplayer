@@ -1,6 +1,8 @@
+require 'rake'
+
 Gem::Specification.new do |s|
   s.name = %q{blast_mavens_multiplayer}
-  s.version = '0.1.0'
+  s.version = '0.1.2'
 
   s.required_rubygems_version = Gem::Requirement.new('>= 0') if s.respond_to? :required_rubygems_version=
   s.authors = ['tjbladez']
@@ -10,6 +12,7 @@ Gem::Specification.new do |s|
   s.email = %q{tjbladez@gmail.com}
   s.has_rdoc = false
   s.bindir = 'bin'
+  s.files = FileList['{bin,lib,resources}/**/*', 'README.md','LICENSE.txt'].to_a
   s.executables = %w{blast_mavens}
   s.default_executable = 'bin/blast_mavens'
   s.homepage = %q{http://github.com/tjbladez/blast_mavens_multiplayer}

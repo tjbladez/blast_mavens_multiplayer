@@ -1,7 +1,7 @@
 class GameWindow < Gosu::Window
   def initialize
     super(*Processor::Screen)
-    self.caption = "Blast Mavens: Multiplayer Beta v0.1.0"
+    self.caption = Processor::Caption
     @players_hit = {:player_0 => [], :player_1 => []}
     @finish_game = false
     @song        = Gosu::Song.new(self, 'resources/sounds/battle.mp3')
