@@ -2,6 +2,9 @@
 require 'rubygems'
 require "gosu"
 
-$:.unshift File.expand_path('../../lib', __FILE__)
-require 'processor'
+BLAST_ROOT = File.expand_path('../..', __FILE__)
+BLAST_IMG_PATH = BLAST_ROOT + '/resources/images/'
+BLAST_MAP_PATH = BLAST_ROOT + '/resources/maps/'
+BLAST_SND_PATH = BLAST_ROOT + '/resources/sounds/'
+require BLAST_ROOT + '/lib/processor'
 Processor.new

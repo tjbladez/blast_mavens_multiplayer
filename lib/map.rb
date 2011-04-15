@@ -5,7 +5,7 @@ class Map
   def initialize(path)
     @path   = path
     @t_size = Processor::TileSize
-    @set    = Gosu::Image.load_tiles(Processor.game_window, 'resources/images/tileset.png', @t_size, @t_size, true)
+    @set    = Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + 'tileset.png', @t_size, @t_size, true)
     register_solid_tiles
   end
 

@@ -4,13 +4,13 @@ class GameWindow < Gosu::Window
     self.caption = Processor::Caption
     @players_hit = {:player_0 => [], :player_1 => []}
     @finish_game = false
-    @song        = Gosu::Song.new(self, 'resources/sounds/battle.mp3')
+    @song        = Gosu::Song.new(self, BLAST_SND_PATH + 'battle.mp3')
     @song.volume = 0.3
     @song.play(true)
   end
 
   def map
-    @map ||= Map.new('resources/maps/basic.txt')
+    @map ||= Map.new(BLAST_MAP_PATH + 'basic.txt')
   end
 
   def draw
