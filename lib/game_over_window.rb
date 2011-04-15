@@ -2,6 +2,7 @@ class GameOverWindow < Gosu::Window
 
   def initialize(death_toll)
     super(*Processor::Screen)
+    self.caption = "Blast Mavens: Multiplayer Beta v0.1.0"
     @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
     @death_toll = death_toll
   end

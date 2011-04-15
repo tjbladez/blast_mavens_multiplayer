@@ -1,7 +1,7 @@
 class GameWindow < Gosu::Window
   def initialize
     super(*Processor::Screen)
-    self.caption = "Bomber"
+    self.caption = "Blast Mavens: Multiplayer Beta v0.1.0"
     @players_hit = {:player_0 => [], :player_1 => []}
     @finish_game = false
     @song        = Gosu::Song.new(self, 'resources/sounds/battle.mp3')
@@ -42,7 +42,9 @@ class GameWindow < Gosu::Window
 
 private
   def button_down(id)
-    close if id == Gosu::KbEscape
+    close               if id == Gosu::KbEscape
+    @song.volume -= 0.1 if id == Gosu::KbNumpadSubtract
+    @song.volume += 0.1 if id == Gosu::KbNumpadAdd
   end
 
   def players_hit?(explosion, index)
