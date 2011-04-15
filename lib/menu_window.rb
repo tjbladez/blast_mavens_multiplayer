@@ -3,11 +3,11 @@ class MenuWindow < Gosu::Window
     super(*Processor::Screen)
     self.caption = "Blast Mavens: Multiplayer Beta v0.1.0"
     @pointer    = Gosu::Image.new(self,"resources/images/cursor.png",true)
-    @background = Gosu::Image.load_tiles(self, 'resources/images/menu3.png', 1024, 768, true).first
+    @background = Gosu::Image.load_tiles(self, 'resources/images/menu.png', 1024, 768, true).first
     @title      = Gosu::Image.load_tiles(self, 'resources/images/title.png', 350, 80, true)
-    @new_game   = Gosu::Image.load_tiles(self, 'resources/images/newgame_2.png', 150, 40, true)
-    @options    = Gosu::Image.load_tiles(self, 'resources/images/options_2.png', 150, 40, true)
-    @exit_game  = Gosu::Image.load_tiles(self, 'resources/images/exitgame_2.png', 150, 40, true)
+    @new_game   = Gosu::Image.load_tiles(self, 'resources/images/newgame.png', 150, 40, true)
+    @options    = Gosu::Image.load_tiles(self, 'resources/images/options.png', 150, 40, true)
+    @exit_game  = Gosu::Image.load_tiles(self, 'resources/images/exitgame.png', 150, 40, true)
     @song       = Gosu::Song.new(self, 'resources/sounds/menu.wav')
     @new_game_index = @options_index = @exit_game_index = 1
     @song.play(true)

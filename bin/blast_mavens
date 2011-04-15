@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# require 'rubygems'
+# require 'blast_mavens_multiplayer'
+
+require File.expand_path("../../config/boot.rb", __FILE__)
+Processor.new

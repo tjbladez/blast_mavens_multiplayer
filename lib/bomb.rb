@@ -5,7 +5,7 @@ class Bomb
   def initialize(x,y)
     register!(x, y)
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.game_window, "resources/images/dynoset.png", @t_size, @t_size, false)
+    @sprites      = Gosu::Image.load_tiles(Processor.game_window, "resources/images/dynamite.png", @t_size, @t_size, false)
     @time_counter = 80
     @sprite_index = 0
     @solid        = false
