@@ -5,7 +5,7 @@ class Explosion
   def initialize(x,y)
     register!(x, y)
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + "explosion.png", @t_size, @t_size, false)
+    @sprites      = Gosu::Image.load_tiles(Processor.window, BLAST_IMG_PATH + "explosion.png", @t_size, @t_size, false)
     @time_counter = 20
     @sprite_index = 0
   end

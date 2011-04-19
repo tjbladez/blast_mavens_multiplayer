@@ -1,11 +1,11 @@
 class Bomb
   include Tileable
-
   attr_accessor :time_counter, :solid
+
   def initialize(x,y)
     register!(x, y)
     @t_size       = Processor::TileSize
-    @sprites      = Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + "dynamite.png", @t_size, @t_size, false)
+    @sprites      = Gosu::Image.load_tiles(Processor.window, BLAST_IMG_PATH + "dynamite.png", @t_size, @t_size, false)
     @time_counter = 80
     @sprite_index = 0
     @solid        = false

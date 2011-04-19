@@ -1,10 +1,8 @@
-class GameOverWindow < Gosu::Window
-
-  def initialize(death_toll)
-    super(*Processor::Screen)
-    self.caption = Processor::Caption
-    @font        = Gosu::Font.new(self, Gosu::default_font_name, 20)
-    @death_toll  = death_toll
+class GameOver
+  def initialize(window, death_toll)
+    @window = window
+    @font = Gosu::Font.new(@window, Gosu::default_font_name, 20)
+    @death_toll = death_toll
   end
 
   def draw
@@ -13,6 +11,14 @@ class GameOverWindow < Gosu::Window
     @font.draw("Player 1 won. Player 2 was blown up by #{killer(:player_1)}", 200, 200, 1) if player_1_hit?
   end
 
+  def button_down(id)
+    Processor.close if id == Gosu::KbEscape
+  end
+
+  def update
+    # do nothing
+  end
+private
   def draw?
     player_0_hit? && player_1_hit?
   end
@@ -27,9 +33,5 @@ class GameOverWindow < Gosu::Window
 
   def killer(player)
     "Player #{@death_toll[player].first.to_s[-1..-1].to_i + 1}"
-  end
-
-  def button_down(id)
-    close if id == Gosu::KbEscape
   end
 end

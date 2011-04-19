@@ -1,13 +1,13 @@
 require 'tileable'
 require 'solid_tile'
-require 'menu_window'
-require 'game_window'
+require 'window'
 require 'map'
 require 'explosion'
 require 'bomb'
 require 'player'
-require 'basic_brain'
-require 'game_over_window'
+require 'menu'
+require 'game_over'
+require 'game'
 # Processor is responsible to keep overall configuration knowledge, state
 # transitions and keeping track of windows
 class Processor
@@ -15,12 +15,13 @@ class Processor
   TileSize = 48
   Caption = "Blast Mavens: Multiplayer Beta v0.1.3"
   class << self
-    attr_reader :game_window
+    attr_reader :window
     attr_accessor :players
 
     def new
       @players = []
-      MenuWindow.new.show
+      @window = Window.new("Menu")
+      @window.show
     end
 
     def has_at_least_one_player?
@@ -48,13 +49,20 @@ class Processor
     end
 
     def start_game
-      @game_window = GameWindow.new
       2.times { @players << Player.new }
-      @game_window.show
+      @window.set_delegate("Game")
     end
 
     def game_over(death_toll)
-      GameOverWindow.new(death_toll).show
+      @window.set_delegate("GameOver", death_toll)
+    end
+
+    def close
+      @window.close
+    end
+
+    def solid_at?(x,y)
+      @window.map ? @window.map.solid_at?(x,y) : false
     end
 
   private

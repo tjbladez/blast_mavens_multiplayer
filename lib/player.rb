@@ -6,10 +6,10 @@ class Player
     @t_size       = Processor::TileSize
     #more animation to come
     @facing       = :down
-    @animation_sprites = {:left  => Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + "player_left#{@index}.png", @t_size, @t_size, false),
-                          :down  => Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + "player_down#{@index}.png", @t_size, @t_size, false),
-                          :up    => Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + "player_up#{@index}.png", @t_size, @t_size, false),
-                          :right => Gosu::Image.load_tiles(Processor.game_window, BLAST_IMG_PATH + "player_right#{@index}.png", @t_size, @t_size, false)}
+    @animation_sprites = {:left  => Gosu::Image.load_tiles(Processor.window, BLAST_IMG_PATH + "player_left#{@index}.png", @t_size, @t_size, false),
+                          :down  => Gosu::Image.load_tiles(Processor.window, BLAST_IMG_PATH + "player_down#{@index}.png", @t_size, @t_size, false),
+                          :up    => Gosu::Image.load_tiles(Processor.window, BLAST_IMG_PATH + "player_up#{@index}.png", @t_size, @t_size, false),
+                          :right => Gosu::Image.load_tiles(Processor.window, BLAST_IMG_PATH + "player_right#{@index}.png", @t_size, @t_size, false)}
     @bombs        = []
     @explosions   = []
     @move_control = {[Gosu::Button::KbA,       Gosu::Button::KbLeft] => [:left, [-1, 0],[0, 0, 0, 40]],
@@ -95,7 +95,7 @@ private
   end
 
   def solid_at?(x, y)
-    Processor.game_window.map.solid_at?(x, y)
+    Processor.solid_at?(x, y)
   end
 
   def explode_direction(x,y, direction)
@@ -119,11 +119,11 @@ private
   end
 
   def input_move_instructions
-    move = @move_control.detect {|keys, movement| Processor.game_window.button_down?(keys[@index]) }
+    move = @move_control.detect {|keys, movement| Processor.window.button_down?(keys[@index]) }
     move.last if move
   end
 
   def placing_bomb?
-    @brain ? @brain.placing_bomb? : Processor.game_window.button_down?(@bomb_control[@index])
+    Processor.window.button_down?(@bomb_control[@index])
   end
 end
