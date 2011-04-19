@@ -1,6 +1,5 @@
 require 'tileable'
 require 'solid_tile'
-require 'window'
 require 'map'
 require 'explosion'
 require 'bomb'
@@ -8,12 +7,13 @@ require 'player'
 require 'menu'
 require 'game_over'
 require 'game'
+require 'window'
 # Processor is responsible to keep overall configuration knowledge, state
 # transitions and keeping track of windows
 class Processor
   Screen = [1024, 768, false]
   TileSize = 48
-  Caption = "Blast Mavens: Multiplayer Beta v0.1.3"
+  Caption = "Blast Mavens: Multiplayer Beta v0.1.4"
   class << self
     attr_reader :window
     attr_accessor :players
